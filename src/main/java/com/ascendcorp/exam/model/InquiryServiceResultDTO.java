@@ -23,7 +23,15 @@ public class InquiryServiceResultDTO implements Serializable {
 
     private String accountName = null;
 
-    public java.lang.String getTranID() {
+    public InquiryServiceResultDTO() {}
+    
+    public InquiryServiceResultDTO(String reasonCode, String reasonDesc) {
+		super();
+		this.reasonCode = reasonCode;
+		this.reasonDesc = reasonDesc;
+	}
+
+	public java.lang.String getTranID() {
         return tranID;
     }
 
