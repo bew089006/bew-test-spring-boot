@@ -1,25 +1,26 @@
 package com.ascendcorp.exam.service;
 
-import com.ascendcorp.exam.model.InquiryServiceResultDTO;
-import com.ascendcorp.exam.model.TransferResponse;
-import com.ascendcorp.exam.proxy.BankProxyGateway;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
+import java.sql.SQLException;
+import java.util.Date;
+
+import javax.xml.ws.WebServiceException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.xml.ws.WebServiceException;
-import java.sql.SQLException;
-import java.util.Date;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.ascendcorp.exam.model.InquiryServiceResultDTO;
+import com.ascendcorp.exam.model.TransferResponse;
+import com.ascendcorp.exam.proxy.BankProxyGateway;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InquiryServiceTest {
