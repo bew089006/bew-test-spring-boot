@@ -100,6 +100,10 @@ public class InquiryServiceTest {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("approved");
         transferResponse.setDescription("approved");
+        transferResponse.setReferenceCode1("rrivsffv234c");
+        transferResponse.setReferenceCode2("11223xfgt");
+        transferResponse.setAmount("100");
+        transferResponse.setBankTransactionID("123456");
 
         when(bankProxyGateway.requestTransfer(anyString(),any(),anyString(),anyString(),anyString(),
                 anyDouble(),anyString(),anyString())).thenReturn(transferResponse);
@@ -113,6 +117,11 @@ public class InquiryServiceTest {
         assertNotNull(inquiry);
         assertEquals("200", inquiry.getReasonCode());
         assertEquals("approved", inquiry.getReasonDesc());
+        assertEquals("approved", inquiry.getAccountName());
+        assertEquals("rrivsffv234c", inquiry.getRef_no1());
+        assertEquals("11223xfgt", inquiry.getRef_no2());
+        assertEquals("100", inquiry.getAmount());
+        assertEquals("123456", inquiry.getTranID());
     }
 
     @Test
@@ -176,7 +185,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return400_when_errorAndDescIsNull() throws SQLException {
+    public void should_return500_when_errorAndDescIsNull() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("transaction_error");
 
@@ -196,7 +205,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return400_when_errorAndNoDescCode() throws SQLException {
+    public void should_return500_when_errorAndNoDescCode() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("transaction_error");
         transferResponse.setDescription("Transaction error.");
@@ -215,7 +224,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return400_when_errorAndDesc3Code() throws SQLException {
+    public void should_return1091_when_errorAndDesc3Code() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("transaction_error");
         transferResponse.setDescription("100:1091:Transaction is error with code 1091.");
@@ -234,7 +243,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return400_when_errorAndDesc2Code() throws SQLException {
+    public void should_return1092_when_errorAndDesc2Code() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("transaction_error");
         transferResponse.setDescription("1092:Transaction is error with code 1092.");
@@ -253,7 +262,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return400_when_errorAndDescCode98() throws SQLException {
+    public void should_return98_when_errorAndDescCode98() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("transaction_error");
         transferResponse.setDescription("98:Transaction is error with code 98.");
@@ -290,7 +299,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return501_when_unknownAndDesc() throws SQLException {
+    public void should_return5001_when_unknownAndDesc() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("unknown");
         transferResponse.setDescription("5001:Unknown error code 5001");
@@ -309,7 +318,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return501_when_unknownAndEmptyDesc() throws SQLException {
+    public void should_return5002_when_unknownAndEmptyDesc() throws SQLException {
         TransferResponse transferResponse = new TransferResponse();
         transferResponse.setResponseCode("unknown");
         transferResponse.setDescription("5002: ");
@@ -364,6 +373,23 @@ public class InquiryServiceTest {
         assertEquals("504", inquiry.getReasonCode());
         assertEquals("Internal Application Error", inquiry.getReasonDesc());
     }
+    
+    @Test
+    public void should_return504_when_responseCodeNull() {
+        TransferResponse transferResponse = new TransferResponse();
+        
+        when(bankProxyGateway.requestTransfer(anyString(),any(),anyString(),anyString(),anyString(),
+                anyDouble(),anyString(),anyString())).thenReturn(transferResponse);
+
+        InquiryServiceResultDTO inquiry = inquiryService.inquiry("123456", new Date(),
+                "Mobile", null,
+                "BANK1", "4321000", 100d, "rrivsffv234c",
+                "11223xfgt", null, null);
+
+        assertNotNull(inquiry);
+        assertEquals("504", inquiry.getReasonCode());
+        assertEquals("Internal Application Error", inquiry.getReasonDesc());
+    }
 
     @Test
     public void should_return504_when_responseNull() throws SQLException {
@@ -382,7 +408,7 @@ public class InquiryServiceTest {
     }
 
     @Test
-    public void should_return503_when_throwWebServiceException() throws SQLException {
+    public void should_return504_when_throwWebServiceException() throws SQLException {
 
         when(bankProxyGateway.requestTransfer(anyString(),any(),anyString(),anyString(),anyString(),
                 anyDouble(),anyString(),anyString())).thenThrow(WebServiceException.class);

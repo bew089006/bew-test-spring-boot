@@ -41,4 +41,21 @@ public class TransferResponse {
     public String getBankTransactionID() {
         return bankTransactionID;
     }
+
+    public void setReferenceCode1(String referenceCode1) {
+        this.referenceCode1 = referenceCode1;
+    }
+
+    public void setReferenceCode2(String referenceCode2) {
+        this.referenceCode2 = referenceCode2;
+    }
+
+    public void setBankTransactionID(String bankTransactionID) {
+        this.bankTransactionID = bankTransactionID;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+    
 }
