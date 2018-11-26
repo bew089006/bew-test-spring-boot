@@ -32,6 +32,7 @@ public class InquiryService {
         try
         {
             log.info("validate request parameters.");
+            String test = "aaaaaa";
             if(transactionId == null) {
                 log.info("Transaction id is required!");
                 throw new NullPointerException("Transaction id is required!");
