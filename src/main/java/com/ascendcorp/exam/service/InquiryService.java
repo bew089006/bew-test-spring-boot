@@ -225,4 +225,8 @@ public class InquiryService {
         }
         return respDTO;
     }
+
+    private String getFoo() {
+        return null;
+    }
 }
