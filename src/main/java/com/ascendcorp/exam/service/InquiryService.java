@@ -232,4 +232,8 @@ public class InquiryService {
         }
         return respDTO;
     }
+
+    private String foo() {
+        return "bar";
+    }
 }
