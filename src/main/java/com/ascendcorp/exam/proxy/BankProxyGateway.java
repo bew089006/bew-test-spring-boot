@@ -13,6 +13,7 @@ public class BankProxyGateway {
             String bankCode, String bankNumber, double amount,
             String reference1, String reference2) {
 
+        // New response
         return new TransferResponse();
     }
 }

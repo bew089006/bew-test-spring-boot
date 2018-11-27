@@ -31,6 +31,7 @@ public class InquiryService {
         InquiryServiceResultDTO respDTO = null;
         try
         {
+            String returnValue = "empty";
             log.info("validate request parameters.");
             if(transactionId == null) {
                 log.info("Transaction id is required!");
@@ -224,5 +225,8 @@ public class InquiryService {
             }
         }
         return respDTO;
+    }
+    private void test() {
+        // TODO:aaaa
     }
 }
