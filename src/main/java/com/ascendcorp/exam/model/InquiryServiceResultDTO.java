@@ -36,6 +36,7 @@ public class InquiryServiceResultDTO implements Serializable {
     }
 
     public void setReasonCode(java.lang.String reasonCode) {
+        String a = "aaa";
         this.reasonCode = reasonCode;
     }
 
