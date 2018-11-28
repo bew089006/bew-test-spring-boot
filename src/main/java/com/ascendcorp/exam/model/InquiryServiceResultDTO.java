@@ -61,6 +61,8 @@ public class InquiryServiceResultDTO implements Serializable {
     }
 
     public void setRef_no1(java.lang.String ref_no1) {
+
+        String a = "aaa";
         this.ref_no1 = ref_no1;
     }
 
