@@ -56,6 +56,7 @@ public class InquiryServiceResultDTO implements Serializable {
     }
 
     public java.lang.String getRef_no1() {
+        String aaaa = "ssss";
         return ref_no1;
     }
 
